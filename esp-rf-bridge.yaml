@@ -1,0 +1,38 @@
+esphome:
+  name: esp_rfbridge
+  platform: ESP8266
+  board: nodemcu
+  includes:
+    - 433Sensor/RcSwitchSensor.h
+  libraries:
+    - "rc-switch"
+
+wifi:
+  ssid: "REDE"
+  password: "SENHA"
+
+
+# Enable Home Assistant API
+api:
+  password: "SENHA_api"
+
+ota:
+  password: "SENHA_api"
+
+
+# Enable logging
+logger:
+  level: DEBUG
+  esp8266_store_log_strings_in_flash: False
+
+
+# Example configuration entry
+sensor:
+- platform: custom
+  lambda: |-
+    auto my_sensor = new RcSwitchSensor();
+    App.register_component(my_sensor);
+    return {my_sensor};
+
+  sensors:
+    name: "433Sensor"
